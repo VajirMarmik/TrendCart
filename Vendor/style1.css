@@ -1,0 +1,334 @@
+/* Reset CSS */
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: sans-serif;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin-top: 10px;
+    background: linear-gradient(to right, #c96161, #5a59b9);
+}
+
+/* Header */
+header {
+    width: 100%;
+    padding: 1rem;
+    color: white;
+    text-align: center;
+}
+
+/* User */
+.user {
+    font-size: 1.2rem;
+}
+
+/* Sign In / Sign Up Buttons */
+.sign-in-up {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.sign-in-up button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: #0000ff;
+    color: white;
+    border-radius: 0.35rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+.sign-in-up button:hover {
+    background-color: #11ce1b;
+    color: black;
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Popup Container */
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Popup */
+.popup {
+    background-color:   #2d2e2e;
+    padding: 2rem;
+    border-radius: 0.35rem;
+    box-shadow: 2px 4px 11px -1px #3f2e2e;
+    width: 80%;
+    max-width: 500px;
+}
+
+.popup h2 {
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.popup h2 button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.5rem; /* Larger close button */
+}
+
+/* Input Fields */
+.input1 {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #444;
+    color: white;
+    border: 1px solid #4a4747;
+    margin-bottom: 2rem;
+    font-size: 20px;
+    margin-top: 1rem;
+}
+
+.input1[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #444;
+    color: white;
+    border: 1px solid #4a4747;
+    margin-bottom: 2rem;
+    font-size: 20px;
+    margin-top: 1rem;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background-color: #0000ff;
+    color: #f3f3f3;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    border-radius: 0.35rem;
+    font-size: 1.2rem;
+    transition: background-color 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #11ce1b;
+    color: black;
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Reset Button */
+button[type="reset"] {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.5rem; /* Larger close button */
+}
+
+
+.btn1 {
+    padding: 0.75rem;
+    text-align: center;
+    text-decoration: none;
+    background-color: #0000ff;
+    color: #f3f3f3;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    margin-top: 10px;
+    transition: all 250ms ease-in-out;
+}
+
+.btn1:active {
+    transform: scale(.98);    
+}
+
+.btn1:hover {
+    box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px #0000ff;
+    background-color: #11ce1b;
+    color: black;
+    font-size: 20px;
+}
+
+
+/* Button */
+.btns-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.btn {
+    padding: 0.75rem;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background-color: #0000ff;
+    color: #f3f3f3;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    margin: 0; /* Removes margin to make button full width */
+    width: 100%; /* Ensures button takes full width of the grid column */
+    transition: all 250ms ease-in-out;
+}
+
+.btn:active {
+    transform: scale(.98);    
+}
+
+.btn:hover {
+    box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px #0000ff;
+    background-color: #11ce1b;
+    color: black;
+    font-size: 20px;
+}
+
+/* Text Centering */
+.text-center {
+    text-align: center;
+    color: #7FFFD4;
+}
+
+/* Logo */
+.logo {
+    width: 75px;
+    height: auto;
+    box-shadow: 10px 7px 20px green;
+    margin-bottom: 10px;
+}
+
+/* Heading */
+h1 {
+    font-size: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Progress */
+.progressbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 4rem 0;
+    counter-reset: step;
+}
+
+.progressbar::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    background-color: #dcdcdc;
+    width: 100%;
+    z-index: 1;
+}
+
+.progress {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    background-color: #11ce1b;
+    width: 0%;
+    z-index: 2;
+    transition: 0.3s ease-in-out;
+}
+
+.progress-step {
+    width: 35px;
+    height: 35px;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2px;
+    z-index: 3;
+    counter-increment: step;
+    position: relative;
+    color: black; /* Default text color */
+}
+
+.progress-step::before {
+    content: counter(step);
+    position: absolute;
+    color: inherit; /* Inherit the text color */
+    /* color: black; */
+}
+
+.progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    text-align: center;
+    color: #707070;
+    font-size: 17px;
+}
+
+.progress-step.active {
+    background-color: #0000ff;
+    font-size: 20px;
+    color: #f3f3f3; 
+}
+
+
+/* form */
+.form {
+    width: clamp(320px, 30%, 430px);
+    margin: 0 auto;
+    border: 1px solid #755656;
+    border-radius: .35rem;
+    padding: 1.5rem;
+    background-color: #1c272a;
+    box-shadow: 2px 4px 11px -1px #3f2e2e;
+}
+
+.form-step {
+    display: none;
+    transform-origin: top;
+    animation: animate 0.5s;
+}
+
+@keyframes animate {
+    from {
+        transform: scale(1, 0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+.form-step.active {
+    display: block;
+}
+
+
+label {
+    color: white;
+}
+

@@ -1,0 +1,204 @@
+/* :root {
+    --primary-color: rgb(11.78.179);
+    --primary-color: #3498db; 
+} */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); */
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin-top: 10px;
+    background: linear-gradient(to right, #c96161,#5a59b9);
+}
+
+h1 {
+    color: #72a99f;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* General Setting */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    /* border: 1px solid #ccc; */
+    background-color: #444;
+    color: white;
+    border: 1px solid #4a4747;
+}
+
+.text-center {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.input-group {
+    margin: 2rem 0;
+}
+
+/* Button */
+.btns-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.btn {
+    padding: 0.75rem;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    background-color: #0000ff;
+    color: #f3f3f3;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    margin: 0; /* Removes margin to make button full width */
+    width: 100%; /* Ensures button takes full width of the grid column */
+    transition: all 250ms ease-in-out;
+}
+
+.btn:active {
+    transform: scale(.98);    
+}
+
+.btn:hover {
+    box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px #0000ff;
+    background-color: #11ce1b;
+    color: black;
+    font-size: 20px;
+}
+
+/* Progress */
+.progressbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 4rem 0;
+    counter-reset: step;
+}
+
+.progressbar::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    background-color: #dcdcdc;
+    width: 100%;
+    z-index: 1;
+}
+
+.progress {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    background-color: #11ce1b;
+    width: 0%;
+    z-index: 2;
+    transition: 0.3s ease-in-out;
+}
+
+.progress-step {
+    width: 35px;
+    height: 35px;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    counter-increment: step;
+    position: relative;
+    color: black; /* Default text color */
+}
+
+.progress-step::before {
+    content: counter(step);
+    position: absolute;
+    color: inherit; /* Inherit the text color */
+    /* color: black; */
+}
+
+.progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    text-align: center;
+    color: #666666;
+    font-size: .80rem;
+}
+
+.progress-step.active {
+    background-color: #0000ff;
+    color: #f3f3f3; 
+}
+
+/* form */
+.form {
+    width: clamp(320px, 30%, 430px);
+    margin: 0 auto;
+    border: 1px solid #755656;
+    border-radius: .35rem;
+    padding: 1.5rem;
+    background-color: #1c272a;
+    box-shadow: 2px 4px 11px -1px #3f2e2e;
+}
+
+/* form */
+/* .form {
+    width: clamp(320px, 30%, 430px);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.5);
+} */
+
+.form-step {
+    display: none;
+    transform-origin: top;
+    animation: animate 0.5s;
+}
+
+@keyframes animate {
+    from {
+        transform: scale(1, 0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+.form-step.active {
+    display: block;
+}
+
+.logo {
+    width: 75px;
+    height: auto;
+    box-shadow: 10px 7px 20px green;
+}

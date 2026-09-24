@@ -1,0 +1,207 @@
+<?php
+
+include "db.php";
+session_start();
+
+// if(isset($_COOKIE['email_username']) && isset($_COOKIE['password'])) {
+//     $id = $_COOKIE['email_username'];
+//     $pass = $_COOKIE['password'];
+// } else {
+//     $id = "";
+//     $pass = "";
+// }  
+
+// for Registration
+if (isset($_POST['register'])) {
+    // Validate password and confirm password
+    if ($_POST['password'] !== $_POST['confirm_password']) {
+        echo "<script> 
+                alert('Passwords do not match');
+                window.location.href = 'index.php';
+            </script>";
+        exit();
+    }
+
+    $user_exist_query = "SELECT * FROM `vendors` WHERE `username` = '$_POST[username]' OR `email` = '$_POST[email]'";
+    $result = mysqli_query($conn, $user_exist_query);
+
+    if($result) {
+        if(mysqli_num_rows($result) > 0) {
+            $result_fetch = mysqli_fetch_assoc($result);
+            if($result_fetch['username'] == $_POST['username']) {
+                echo "<script> 
+                            alert('$result_fetch[username] - Username already taken');
+                            window.location.href = 'index.php';
+                        </script>";                
+            } else {
+                echo "<script> 
+                            alert('$result_fetch[email] - E-mail already taken');
+                            window.location.href = 'index.php';
+                        </script>";       
+            }
+        } else {
+            $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            $v_code = bin2hex(random_bytes(16));
+
+            $photo = $_FILES['photo']['name'];
+            $pancard_front = $_FILES['panfront']['name'];
+            $pancard_back = $_FILES['panback']['name'];
+            $target_dir = "../uploads/";
+
+            // Check if the uploads directory exists, if not create it
+            if (!is_dir($target_dir)) {
+                mkdir($target_dir, 0777, true);
+            }
+
+            $photo_file = $target_dir . basename($photo);
+            $pancard_front_file = $target_dir . basename($pancard_front);
+            $pancard_back_file = $target_dir . basename($pancard_back);
+
+            // Upload files
+            move_uploaded_file($_FILES['photo']['tmp_name'], $photo_file);
+            move_uploaded_file($_FILES['panfront']['tmp_name'], $pancard_front_file);
+            move_uploaded_file($_FILES['panback']['tmp_name'], $pancard_back_file);
+
+            $query = "INSERT INTO `vendors`(`full_name`, `username`, `photo`, `phone`, `email`, `pancard_number`, `pancard_front`, `pancard_back`, `password`, `verification_code`, `is_verified`) 
+            VALUES ('$_POST[fname] $_POST[lusername]', '$_POST[username]', '$photo_file', '$_POST[phone]', '$_POST[email]', '$_POST[pancard]', '$pancard_front_file', '$pancard_back_file', '$password', '$v_code', 'Not Joined')";
+
+            if (mysqli_query($conn, $query)) {
+                echo "<script> 
+                        alert('Registration Successful');
+                        window.location.href = 'index.php';
+                    </script>";
+            } else {
+                echo "<script> 
+                            alert('Server Down');
+                            window.location.href = 'index.php';
+                        </script>";                
+            }
+        }
+    } else {
+        echo "<script> 
+                    alert('Cannot Run Query');
+                    window.location.href = 'index.php';
+                </script>";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendCart - Vendor Registration Form</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        .text-center {
+            text-align: center;
+            margin-top: 20px; /* Adjust the margin-top value as needed */
+        }
+
+        .text-center .link {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .text-center .link:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            color: white;
+        }
+    </style>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <form action="register.php" method="POST" enctype="multipart/form-data" class="form">
+        <div class="text-center mb-4">
+            <img src="logo.png" alt="TrendCart Logo" class="logo">
+            <h1>Vendor Register Form</h1>
+        </div>
+        <!-- Progressbar -->
+        <div class="progressbar">
+            <div class="progress" id="progress"></div>
+            <div class="progress-step active" data-title="Personal Info"></div>
+            <div class="progress-step" data-title="Contact Info"></div>
+            <div class="progress-step" data-title="Identity Proof"></div>
+            <div class="progress-step" data-title="Password"></div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="form-step active">
+            <div class="input-group">
+                <label for="fname">First Name</label>
+                <input type="text" name="fname" id="fname" placeholder="Enter your first name" required>
+            </div>
+            <div class="input-group">
+                <label for="username">User Name</label>
+                <input type="text"  name="username" id="username" placeholder="Enter your Username" required>
+            </div>
+            <div class="input-group">
+                <label for="photo">Photo Upload</label>
+                <input type="file" name="photo" id="photo" accept="image/*" required>
+            </div>
+            <div>
+                <a href="#" class="btn btn-next">Next</a>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-step">
+            <div class="input-group">
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" placeholder="Enter your phone number" required>
+            </div>
+            <div class="input-group">
+                <label for="email">E-Mail</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email address" required>
+            </div>
+            <div class="btns-group">
+                <a href="#" class="btn btn-previous">Previous</a>
+                <a href="#" class="btn btn-next">Next</a>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-step">
+            <div class="input-group">
+                <label for="pancard">PAN Card Number</label>
+                <input type="text" name="pancard" id="pancard" placeholder="Enter your PAN card number" required>
+            </div>
+            <div class="input-group">
+                <label for="panfront">PAN Card Front Photo</label>
+                <input type="file" name="panfront" id="panfront" accept="image/*" required>
+            </div>
+            <div class="input-group">
+                <label for="panback">PAN Card Back Photo</label>
+                <input type="file" name="panback" id="panback" accept="image/*" required>
+            </div>
+            <div class="btns-group">
+                <a href="#" class="btn btn-previous">Previous</a>
+                <a href="#" class="btn btn-next">Next</a>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="form-step">
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required>
+            </div>
+            <div class="btns-group">
+                <a href="#" class="btn btn-previous">Previous</a>
+                <input type="submit" name="register" value="Submit" class="btn">
+            </div><br>
+        </div>
+        <div class="text-center mt-4">
+            <p>Already have an account? <a href="login.php" class="link">Login here</a></p>
+        </div>
+    </form>
+</body>
+</html>
